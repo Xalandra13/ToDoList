@@ -8,7 +8,7 @@ var ToDoList = React.createClass({
    },
 
     addTask: function(event) {
-
+        this.setState.tasks;
     },
 
     render: function(){
