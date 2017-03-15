@@ -1,11 +1,21 @@
 var React = require('react');
 
 var TodoItems = React.createClass({
+    removeNode: function(event) {
+        event.preventDefault();
+    },
+
     render: function() {
         var todoEntries = this.props.entries;
 
         function createTasks(item) {
-            return <li key={item.key}>{item.text}</li>
+            return (
+                <li key={item.key}>{item.text}
+                <div>
+                    <button type="button" onClick={this.removeNode}>X</button>
+                </div>
+                </li>
+            );
         }
 
         var listItems = todoEntries.map(createTasks);
