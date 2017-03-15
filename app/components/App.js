@@ -1,39 +1,11 @@
 var React = require('react');
 
-var TodoItems = React.createClass({
-    removeNode: function(event) {
-        event.preventDefault();
+var TodoApp = React.createClass({
+    getInitialState: function() {
+        return {
+            items: []
+        };
     },
-
-    render: function() {
-        var todoEntries = this.props.entries;
-
-        function createTasks(item) {
-            return (
-                <li key={item.key}>{item.text}
-                <div>
-                    <button type="button" onClick={this.removeNode}>X</button>
-                </div>
-                </li>
-            );
-        }
-
-        var listItems = todoEntries.map(createTasks);
-
-        return (
-            <ul>
-                {listItems}
-            </ul>
-        );
-    }
-});
-
-var ToDoList = React.createClass({
-   getInitialState: function() {
-       return {
-           items: []
-       };
-   },
 
     addItem: function(event) {
         var itemArray = this.state.items;
@@ -57,18 +29,64 @@ var ToDoList = React.createClass({
         event.preventDefault();
     },
 
-    render: function(){
+    render: function() {
         return (
             <div>
                 <h1>To-Do-List</h1>
-                <form onSubmit={this.addItem}>
-                    Task: <input ref={(a) => this._inputElement = a} placeholder="Enter task" />
-                    <button type="submit">Add</button>
-                </form>
-                <TodoItems entries={this.state.items} />
+                <TodoForm />
+                <TodoList />
             </div>
         );
     }
 });
 
-module.exports = ToDoList;
+var TodoForm = React.createClass({
+    render: function() {
+        return (
+            <div>
+                <form onSubmit={this.addItem}>
+                    Task: <input ref={(a) => this._inputElement = a} placeholder="Enter task" />
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+        );
+    }
+});
+
+var TodoItem = React.createClass({
+    /*removeNode: function(event) {
+        event.preventDefault();
+    },*/
+
+    render: function() {
+       // var todoEntries = this.props.entries;
+
+        return (
+            <li key={item.key}>{item.text}
+            <div>
+                <button type="button" onClick={this.removeNode}>X</button>
+            </div>
+            </li>
+        );
+
+    }
+});
+
+var TodoList = React.createClass({
+
+    render: function(){
+        var listItems = todoEntries.map(function(item) {
+            return (
+                <TodoItem entries={this.state.items} />
+            );
+        });
+
+        return (
+            <ul>
+                {listItems}
+            </ul>
+        );
+    }
+});
+
+module.exports = TodoApp;
