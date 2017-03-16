@@ -1,85 +1,14 @@
 var React = require('react');
 
-var TodoApp = React.createClass({
-    getInitialState: function() {
-        return {
-            items: []
-        };
-    },
-
-    addItem: function(event) {
-        var itemArray = this.state.items;
-
-        // add submitted text
-        itemArray.push(
-            {
-                text: this._inputElement.value,
-                key: Date.now()  // current time as unique id
-            }
-        );
-
-        this.setState({
-            items: itemArray
-        });
-
-        // empty text input field
-        this._inputElement.value = "";
-
-        // prevent POST behavior
-        event.preventDefault();
-    },
-
+var TodoItems = React.createClass({
     render: function() {
-        return (
-            <div>
-                <h1>To-Do-List</h1>
-                <TodoForm />
-                <TodoList />
-            </div>
-        );
-    }
-});
+        var todoEntries = this.props.entries;
 
-var TodoForm = React.createClass({
-    render: function() {
-        return (
-            <div>
-                <form onSubmit={this.addItem}>
-                    Task: <input ref={(a) => this._inputElement = a} placeholder="Enter task" />
-                    <button type="submit">Add</button>
-                </form>
-            </div>
-        );
-    }
-});
+        function createTasks(item){
+            return <li key={item.key}>{item.text}</li>
+        }
 
-var TodoItem = React.createClass({
-    /*removeNode: function(event) {
-        event.preventDefault();
-    },*/
-
-    render: function() {
-       // var todoEntries = this.props.entries;
-
-        return (
-            <li key={item.key}>{item.text}
-            <div>
-                <button type="button" onClick={this.removeNode}>X</button>
-            </div>
-            </li>
-        );
-
-    }
-});
-
-var TodoList = React.createClass({
-
-    render: function(){
-        var listItems = todoEntries.map(function(item) {
-            return (
-                <TodoItem entries={this.state.items} />
-            );
-        });
+        var listItems = todoEntries.map(createTasks);
 
         return (
             <ul>
@@ -89,4 +18,47 @@ var TodoList = React.createClass({
     }
 });
 
-module.exports = TodoApp;
+var TodoList = React.createClass({
+    getInitialState: function() {
+        return {
+            items: []
+        };
+    },
+
+    addItem: function(e) {
+        var itemArray = this.state.items;
+
+        itemArray.push(
+            {
+                text: this._inputElement.value,
+                key: Date.now()
+            }
+        );
+
+        this.setState({
+            items: itemArray
+        });
+
+        this._inputElement.value = "";
+
+        e.preventDefault();
+    },
+
+    render: function() {
+        return (
+            <div>
+                <h1>To-Do-List</h1>
+                <div>
+                    <form onSubmit={this.addItem}>
+                        <input ref={(a) => this._inputElement = a} placeholder="Enter task">
+                        </input>
+                        <button type="submit">Add</button>
+                    </form>
+                </div>
+                <TodoItems entries={this.state.items}/>
+            </div>
+        );
+    }
+});
+
+module.exports = TodoList;

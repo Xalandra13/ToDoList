@@ -1,8 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var TodoApp = require('./components/App');
+var TodoList = require('./components/App');
 
 ReactDOM.render(
-    <TodoApp />,
+    <TodoList />,
     document.getElementById('app')
 );
