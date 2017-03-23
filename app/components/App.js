@@ -1,13 +1,17 @@
 var React = require('react');
 
 var TodoItem = React.createClass({
+    deleteTask: function() {
+        console.log('deleteTask()');
+    },
+
     render: function() {
         var todoEntries = this.props.entries;
 
         function createTasks(item){
             return (
                 <li key={item.key}>
-                    {item.text} <button onClick={this.deleteItem}>X</button>
+                    {item.text} <button onClick={this.deleteTask} >X</button>
                 </li>
             );
         }
@@ -50,9 +54,9 @@ var TodoListApp = React.createClass({
 
     deleteItem: function(key) {
         var newItems = this.state.items.filter(function(item) {
-            return item.key != key;
+            return item.key !== key;
         });
-
+        console.log(newItems);
         this.setState({
             items: newItems
         });
