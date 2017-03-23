@@ -1,17 +1,18 @@
 var React = require('react');
 
 var TodoItem = React.createClass({
-    deleteTask: function() {
-        console.log('deleteTask()');
-    },
-
     render: function() {
+        function deleteTask(){
+            console.log('deleteTask()');
+
+        }
+
         var todoEntries = this.props.entries;
 
         function createTasks(item){
             return (
                 <li key={item.key}>
-                    {item.text} <button onClick={this.deleteTask} >X</button>
+                    {item.text} <button onClick={deleteTask} >X</button>
                 </li>
             );
         }
