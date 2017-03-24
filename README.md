@@ -1,2 +1,2 @@
 # ToDoList
-A simple to-do-list with react
+A to-do-list app with react
