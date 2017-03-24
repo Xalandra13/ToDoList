@@ -1,6 +1,6 @@
 var React = require('react');
 
-var TodoItem = React.createClass({
+var TodoItems = React.createClass({
     render: function() {
         function deleteTask(){
             console.log('deleteTask()');
@@ -12,6 +12,7 @@ var TodoItem = React.createClass({
         function createTasks(item){
             return (
                 <li key={item.key}>
+
                     {item.text} <button onClick={deleteTask} >X</button>
                 </li>
             );
@@ -74,7 +75,7 @@ var TodoListApp = React.createClass({
                         <button type="submit">Add</button>
                     </form>
                 </div>
-                <TodoItem entries={this.state.items} deleteItem={this.deleteItem} />
+                <TodoItems entries={this.state.items} deleteItem={this.deleteItem} />
             </div>
         );
     }
